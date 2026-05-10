@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Inscription extends Model
 {
     //
-    use HasUuids;
+    public $timestamps = false;
     protected $fillable=[
         'eventId',
         'firstName',
@@ -16,8 +16,8 @@ class Inscription extends Model
         'email',
         'registeredAt',
     ];
-    public function inscriptions()
+    public function evenement()
     {
-        return $this->hasMany(Inscription::class, 'eventId');
+        return $this->belongsTo(Evenement::class, 'eventId');
     }
 }

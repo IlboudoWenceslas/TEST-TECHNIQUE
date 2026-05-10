@@ -1,23 +1,26 @@
 <?php
 
-
 use App\Http\Controllers\Api\EvenementController;
 use App\Http\Controllers\Api\InscriptionController;
+use App\Http\Controllers\Api\AuthControllers;
 use Illuminate\Support\Facades\Route;
 
+// Auth
+Route::post('/register', [AuthControllers::class, 'register']);
+Route::post('/login', [AuthControllers::class, 'login']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
- Route::middleware('auth:api')->group(function () {
-    Route::post('/evenements', [EvenementController::class, 'store']);
-    Route::post('/inscriptions', [InscriptionController::class, 'store']);
-    Route::get('/evenements',[EvenementController::class, 'index']);
-    Route::get('/evenements/{id}',[EvenementController::class, 'show']);
-    Route::put('/evenements/{id}',[EvenementController::class, 'update']);
-    Route::delete('/evenements/{id}',[EvenementController::class, 'destroy']);
-        Route::get('/inscriptions',[InscriptionController::class, 'index']);
-        Route::get('/inscriptions/{id}',[InscriptionController::class, 'show']);
-        Route::put('/inscriptions/{id}',[InscriptionController::class, 'update']);
-        Route::delete('/inscriptions/{id}',[InscriptionController::class, 'destroy']);
+// Routes publiques
+Route::get('/events', [EvenementController::class, 'index']);
+Route::get('/events/{id}', [EvenementController::class, 'show']);
+Route::post('/events/{id}/register', [InscriptionController::class, 'store']);
+Route::get('/events/{id}/registrations', [InscriptionController::class, 'index']);
+Route::delete('/registrations/{id}', [InscriptionController::class, 'destroy']);
+
+// Routes protégées (JWT requis)
+Route::middleware('auth:api')->group(function () {
+    Route::post('/events', [EvenementController::class, 'store']);
+    Route::put('/events/{id}', [EvenementController::class, 'update']);
+    Route::delete('/events/{id}', [EvenementController::class, 'destroy']);
+
+    Route::post('/logout', [AuthControllers::class, 'logout']);
 });
