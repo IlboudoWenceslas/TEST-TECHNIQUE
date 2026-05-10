@@ -99,7 +99,7 @@ export const environment = {
 ### Installation
 
 ```bash
-cd frontend-flutter
+cd testtechniquefronend_mobile
 flutter pub get
 ```
 
@@ -113,7 +113,7 @@ flutter run
 flutter run -d emulator-5554
 ```
 
-> **Important :** Sur émulateur Android, l'API Laravel est accessible via `http://10.0.2.2:8000` (pas `localhost`). Cette URL est déjà configurée dans `lib/config/api_config.dart`.
+> **Important :** Sur émulateur Android, l'API Laravel est accessible via `http://addresseIpMachine:8000` (pas `localhost`). Cette URL est déjà configurée dans `lib/config/api_config.dart`.
 
 ### Écrans disponibles
 
